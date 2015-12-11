@@ -13,6 +13,12 @@ void drawBoard(struct Jewel arr[8][8]) {
 		gfx_line(150,150+i,550,150+i);
 	}
 
+	//draws Game name
+	drawName();
+}
+void drawName(void) {
+
+	int i = 0;
 	//drawn Game Name: M & -
 	for(i=0;i<100;i=i+20) {
 		gfx_fill_rectangle(175,100-i,20,20);
@@ -27,7 +33,8 @@ void drawBoard(struct Jewel arr[8][8]) {
 	for(i=0;i<100;i=i+20) {
 		gfx_fill_rectangle(235,100-i,20,20);
 	}
-	gfx_fill_rectangle(375,60,20,20);
+	gfx_fill_rectangle(375,70,15,15);
+	gfx_fill_rectangle(390,70,15,15);
 
 	//A
 	gfx_color(222,24,57);
@@ -71,4 +78,12 @@ void drawBoard(struct Jewel arr[8][8]) {
 	}
 	gfx_fill_rectangle(365,110,10,10);
 
+	//3
+	gfx_color(188,115,222);
+	for(i=0;i<100;i=i+20) {
+		gfx_fill_rectangle(425,100-i,20,20);
+	}	
+	gfx_fill_rectangle(405,20,20,20);
+	gfx_fill_rectangle(405,100,20,20);
+	gfx_fill_rectangle(405,60,20,20);
 }
