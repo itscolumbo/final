@@ -4,7 +4,7 @@
 
 #include "finalfn.h"
 
-void drawBoard(struct Jewel arr[8][8]) {
+void drawBoard(/*Jewel arr[8][8]*/) {
 	int i = 0;
 
 	gfx_color(255,255,255);
@@ -12,10 +12,6 @@ void drawBoard(struct Jewel arr[8][8]) {
 		gfx_line(150+i,150,150+i,550);
 		gfx_line(150,150+i,550,150+i);
 	}
-
-	//draws Game name
-	drawName();
-	drawNameOutline();
 
 	//current score box
 	gfx_text(600,200,"Score: ");

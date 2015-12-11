@@ -1,5 +1,6 @@
 //final.c
-//Bejewelled-type game using GFX Library and XMing
+//Bejewel
+led-type game using GFX Library and XMing
 //Author: Kat Herring
 
 #include "finalfn.h"

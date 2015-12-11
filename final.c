@@ -8,7 +8,7 @@ int main(void) {
 	int event, score = 0;
 	int * scorep = &score;
 	char c;
-	struct Jewel jewels[8][8];
+	Jewel jewels[8][8];
 
 	gfx_open(800,600,"Final Project");
 	drawBoard(jewels);
@@ -18,6 +18,7 @@ int main(void) {
 		if(event) {
 			gfx_clear();
 			drawBoard(jewels);
+			drawName();
 			c = gfx_wait();
 			event = 0;
 		}

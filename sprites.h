@@ -1,1 +1,1 @@
-//sprite arrays
+//Sprite info will go here
