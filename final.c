@@ -1,11 +1,12 @@
 //final.c
 //Bejewelled-type game using GFX Library and XMing
-//Author: Kat Herring
+//Author: Kat Herring & Mara Staines
 
 #include "finalfn.h"
 
 int main(void) { 
-	int event;
+	int event, score = 0;
+	int * scorep = &score;
 	char c;
 	struct Jewel jewels[8][8];
 

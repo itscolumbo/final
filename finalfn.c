@@ -16,6 +16,9 @@ void drawBoard(struct Jewel arr[8][8]) {
 	//draws Game name
 	drawName();
 	drawNameOutline();
+
+	//current score box
+	gfx_text(600,200,"Score: ");
 }
 void drawName(void) {
 	int i = 0;

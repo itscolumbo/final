@@ -30,3 +30,4 @@ void dropFill(struct Jewel arr[8][8]); //move jewels down into empty space, fill
 void moveAni(int x1, int y1, int x2, int y2); //animate swap, remove, refilling
 int moreMoves(struct Jewel arr[8][8]); //check if more moves exist
 void shuffle(struct Jewel arr[8][8]); //shuffle if no new moves exist
+void updateScore(int * scorep); //updates the current score (called in/after checkMove if move is found to be valid)
