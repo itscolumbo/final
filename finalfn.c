@@ -27,8 +27,18 @@ void drawBoard(struct Jewel arr[8][8]) {
 	for(i=0;i<100;i=i+20) {
 		gfx_fill_rectangle(235,100-i,20,20);
 	}
+
 	//A
 	gfx_color(222,24,57);
-	gfx_fill_rectangle(255,100,20,20);
-	
+	for(i=0;i<3;i++) {
+		gfx_fill_rectangle(255+10*i,70,10,10);
+		gfx_fill_rectangle(255+10*i,110,10,10);
+	}
+	for(i=0;i<5;i++) {
+		gfx_fill_rectangle(285,70+10*i,10,10);
+	}
+	gfx_fill_rectangle(255,100,10,10);
+	gfx_fill_rectangle(255,90,10,10);
+	gfx_fill_rectangle(265,90,10,10);
+	gfx_fill_rectangle(275,90,10,10);
 }
