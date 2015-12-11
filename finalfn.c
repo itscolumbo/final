@@ -4,7 +4,7 @@
 
 #include "finalfn.h"
 
-void drawBoard(void) {
+void drawBoard(struct Jewel arr[8][8]) {
 	int i = 0;
 
 	gfx_color(255,255,255);

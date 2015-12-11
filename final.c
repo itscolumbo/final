@@ -7,15 +7,16 @@
 int main(void) { 
 	int event;
 	char c;
+	struct Jewel jewels[8][8];
 
 	gfx_open(800,600,"Final Project");
-	drawBoard();
+	drawBoard(jewels);
 
 	while(c!='q') { //runs until user presses q to quit
 		event = gfx_event_waiting();
 		if(event) {
 			gfx_clear();
-			drawBoard();
+			drawBoard(jewels);
 			c = gfx_wait();
 			event = 0;
 		}
