@@ -18,7 +18,6 @@ int main(void) {
 		if(event) {
 			gfx_clear();
 			drawBoard(jewels);
-			drawName();
 			c = gfx_wait();
 			event = 0;
 		}

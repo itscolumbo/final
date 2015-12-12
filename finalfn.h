@@ -28,6 +28,12 @@ void moveAni(int x1, int y1, int x2, int y2); //animate swap, remove, refilling
 int moreMoves(Jewel arr[8][8]); //check if more moves exist
 void shuffle(Jewel arr[8][8]); //shuffle if no new moves exist
 void updateScore(int * scorep); //updates the current score (called in/after checkMove if move is found to be valid)
+void ramseyJewel(int x1, int y1); //draws icon with prof. bualuan face, takes input of coordinates of top left corner
+void coreyJewel(int x1, int y1); //corey
+void tijanaJewel(int x1, int y1); //prof. milenkovic
+void floppyJewel(int x1, int y1);
+void computerJewel(int x1, int y1);
+void windowJewel(int x1, int y1);
 
 #endif //FINALFN_H_
 

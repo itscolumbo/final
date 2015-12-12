@@ -15,6 +15,8 @@ void drawBoard(/*Jewel arr[8][8]*/) {
 
 	//current score box
 	gfx_text(600,200,"Score: ");
+	drawName();
+	drawNameOutline();
 }
 void drawName(void) {
 	int i = 0;
