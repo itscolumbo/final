@@ -4,7 +4,7 @@
 
 #include "finalfn.h"
 
-void drawBoard(/*Jewel arr[8][8]*/) {
+void drawBoard(Jewel arr[8][8]) {
 	int i = 0;
 
 	gfx_color(255,255,255);
@@ -15,8 +15,12 @@ void drawBoard(/*Jewel arr[8][8]*/) {
 
 	//current score box
 	gfx_text(600,200,"Score: ");
+
 	drawName();
 	drawNameOutline();
+
+	//draw jewels on board
+
 }
 void drawName(void) {
 	int i = 0;
@@ -160,4 +164,7 @@ void drawNameOutline(void) {
 	}
 	gfx_rectangle(375,70,15,15);
 	gfx_rectangle(390,70,15,15);
+}
+void initializeJewel(Jewel arr[8][8]) { //fills randomized array of jewels
+
 }

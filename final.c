@@ -10,6 +10,8 @@ int main(void) {
 	char c;
 	Jewel jewels[8][8];
 
+	initializeJewel(jewels);
+
 	gfx_open(800,600,"Final Project");
 	drawBoard(jewels);
 
