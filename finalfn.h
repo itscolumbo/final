@@ -1,11 +1,10 @@
-//#ifndef FINALFN_H_
-//#define FINALFN_H_
+#ifndef FINALFN_H_
+#define FINALFN_H_
 
 #include <stdbool.h>
 #include <stdio.h>
 #include "gfx5.h"
-#include "sprites.h"
-;
+
 typedef struct Jewel {
  	char type; //Ramzi-- 'r', Corey-- 'c'
  	int x1; //PIXEL location of jewel (square area)
@@ -29,3 +28,6 @@ void moveAni(int x1, int y1, int x2, int y2); //animate swap, remove, refilling
 int moreMoves(Jewel arr[8][8]); //check if more moves exist
 void shuffle(Jewel arr[8][8]); //shuffle if no new moves exist
 void updateScore(int * scorep); //updates the current score (called in/after checkMove if move is found to be valid)
+
+#endif //FINALFN_H_
+

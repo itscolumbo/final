@@ -90,7 +90,6 @@ void drawName(void) {
 void drawNameOutline(void) {
 	int i = 0;
 
-
 	//A
 	gfx_color(176,0,38);
 	for(i=0;i<3;i++) {
