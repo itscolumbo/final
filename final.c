@@ -10,7 +10,7 @@ int main(void) {
 	char c;
 	Jewel jewels[8][8];
 
-	initializeJewel(jewels);
+	//initializeJewel(jewel);
 
 	gfx_open(800,600,"Final Project");
 	drawBoard(jewels);
@@ -19,7 +19,7 @@ int main(void) {
 		event = gfx_event_waiting();
 		if(event) {
 			gfx_clear();
-			drawBoard(jewels);
+			drawOutline();
 			c = gfx_wait();
 			event = 0;
 		}

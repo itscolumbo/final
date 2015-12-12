@@ -4,7 +4,7 @@
 
 #include "finalfn.h"
 
-void drawBoard(Jewel arr[8][8]) {
+void drawOutline() {
 	int i = 0;
 
 	gfx_color(255,255,255);
@@ -18,8 +18,6 @@ void drawBoard(Jewel arr[8][8]) {
 
 	drawName();
 	drawNameOutline();
-
-	//draw jewels on board
 
 }
 void drawName(void) {
@@ -165,6 +163,94 @@ void drawNameOutline(void) {
 	gfx_rectangle(375,70,15,15);
 	gfx_rectangle(390,70,15,15);
 }
-void initializeJewel(Jewel arr[8][8]) { //fills randomized array of jewels
+void initializeJewel(Jewel jewel, int x, int y) { //fills randomized array of jewels
+	srand(time(NULL));
+	jewel.type = rand() % 6;
+	jewel.x0 = x;
+	jewel.y0 = y;
+}
 
+void initializeBoard(Jewel arr[8][8]) {
+	int i, j, x = 151, y = 151;
+	for (i = 0; i < 8; i++) {
+		for (j = 0; j < 8; j++) {
+			initializeJewel(arr[i][j], x, y);
+			y += 50;
+		}
+		x += 50;
+	}
+}
+
+void drawJewel(Jewel jewel) {
+	pixel pixelMap[16][16];
+	int i, j, p, q, x, y;
+	x = jewel.x0;
+	y = jewel.y0;
+	switch (jewel.type) {
+		case 0 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = Rarr[i][j];
+				}
+			}
+			break;
+		case 1 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = Carr[i][j];
+				}
+			}
+			break;
+		case 2 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = Tarr[i][j];
+				}
+			}
+			break;
+		case 3 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = Farr[i][j];
+				}
+			}
+			break;
+		case 4 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = Warr[i][j];
+				}
+			}
+			break;
+		case 5 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = Marr[i][j];
+				}
+			}
+			break;
+		default :
+		printf("Draw failed");
+	}
+	for (i = 0; i < 16; i++) {
+		for(j = 0; j < 16; j++) {
+			gfx_color(pixelMap[i][j].arr[0], pixelMap[i][j].arr[1], pixelMap[i][j].arr[2] );
+			for(p = 0; p < 3; p++) {
+				for(q = 0; q < 3; q++) {
+					gfx_point(x + p, y + q);
+				}
+			}
+			x += 3;
+		}
+		y += 3;
+	}	
+}
+
+void drawBoard(Jewel arr[8][8]) {
+	int i, j;
+	for (i = 0; i < 8; i++) {
+		for(j = 0; j < 8; j++) {
+			drawJewel(arr[i][j]);
+		}
+	}
 }
