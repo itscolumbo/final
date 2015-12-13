@@ -1,5 +1,6 @@
 //final.c
 //Bejewelled-type game using GFX Library and XMing
+//Note: our use of gfx5.c does NOT detect motion- ability removed from gfx_event_waiting
 //Author: Kat Herring & Mara Staines
 
 #include "finalfn.h"
