@@ -1,3 +1,5 @@
+
+
 #ifndef FINALFN_H_
 #define FINALFN_H_
 
@@ -24,15 +26,16 @@ void drawJewel(Jewel jewel); // will contain functions for pixel art
 void drawName(void);
 void drawNameOutline(void);
 void dropFill(Jewel arr[8][8]); //move jewels down into empty space, fill top spaces
-//void fillBoard(Jewel arr[8][8]); //fill array with random jewels
+void removeMatch(Jewel arr[8][8]);
 void initBoard(Jewel arr[8][8]); //sets up board for first time
 void initJewel(Jewel* jewel, int x, int y); //assign Jewel its x1, y1, x2, y2;
 int moreMoves(Jewel arr[8][8]); //check if more moves exist
 void moveAni(int x1, int y1, int x2, int y2); //animate swap, remove, refilling
 void shuffle(Jewel arr[8][8]); //shuffle if no new moves exist
-void swap(int x1, int y1, int x2, int y2, Jewel arr[8][8]); //perform swap on arr
+void swap(int x1, int y1, int x2, int y2, Jewel arr[8][8]); //perform swap on arr 
 void updateScore(int * scorep); //updates the current score (called in/after checkMove if move is found to be valid)
 void userMove(int arr1[2], int arr2[2], Jewel arr[8][8]); //input the results of two clicktoJewel, perform swap and animations if valid
+int validBoard(Jewel arr[8][8]); //returns 0 if board is valid, 1 otherwise
 
 #endif
 

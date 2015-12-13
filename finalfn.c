@@ -171,15 +171,18 @@ void initJewel(Jewel *jewel, int x, int y) { //fills randomized array of jewels
 }
 
 void initBoard(Jewel arr[8][8]) {
+	int valid = 0;
 	srand(time(NULL));
 	int i, j, x = 151, y = 151;
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
 			initJewel(&arr[i][j], x, y);
 			y += 50;
+			//printf("%d ", arr[i][j].type);
 		}
 		x += 50;
 		y -= 400;
+		//printf("\n%d: ", i+1);
 	}
 }
 
@@ -410,4 +413,71 @@ void clicktoJewel(int arr[2]) {
 	int y = gfx_ypos();
 	arr[0] = (x - 150) % 50;
 	arr[1] = (y - 150) % 50;
+}
+int validBoard(Jewel arr[8][8]) {
+	int notValid = 1, valid = 0, i=0, j=0;
+	//checks if board already contains matches
+	
+	for (i = 0; i < 8; i++) {
+		for(j = 0; j < 8; j++) {
+			if(j<6) {
+				 if(arr[i][j].type==arr[i][j+1].type) {
+				 	if(arr[i][j+2].type==arr[i][j+1].type) { //three in a row found
+				 		//printf("%d %d %d \n", arr[i][j].type, arr[i][j+1].type, arr[i][j+2].type);
+				 		return notValid;
+					} 
+				}
+			} else if(i<6) {
+				if(arr[i][j].type==arr[i+1][j].type) {
+					if(arr[i+2][j].type==arr[i+1][j].type) {
+			 			return notValid;
+					}
+				}
+				
+			}
+		}
+	}
+	//next, check if moves are possible
+	return valid;
+}
+void removeMatch(Jewel arr[8][8]) {
+	int i, j;
+
+		for (i = 0; i < 8; i++) {
+		for(j = 0; j < 8; j++) {
+			if(j<6) {
+				 if(arr[i][j].type==arr[i][j+1].type) {
+				 	if(arr[i][j+2].type==arr[i][j+1].type) { //three in a row found
+					 	if(arr[i][j+1].type>0) {
+					 		//printf("%d %d %d \n", arr[i][j].type, arr[i][j+1].type, arr[i][j+2].type);
+					 		arr[i][j+1].type--;
+					 		return;
+					 	} else {
+					 		arr[i][j+1].type++; //ensure stays within boundary of array
+					 		return;
+					 	}
+					} 
+				}
+			} else if(i<6) {
+				if(arr[i][j].type==arr[i+1][j].type) {
+					if(arr[i+2][j].type==arr[i+1][j].type) {
+					 	if(arr[i+1][j].type>0) {
+					 		arr[i+1][j].type--; //sets type to a different one
+					 		return;
+					 	} else {
+					 		arr[i-1][j].type++; //ensure stays within boundary of array
+					 		return;
+					 	}
+					}	
+				}
+			}
+		}
+	}
+}
+void swap(int x1, int y1, int x2, int y2, Jewel arr[8][8]) {
+	int temp;
+
+	temp = arr[x1][y1].type;
+	arr[x1][y1].type = arr[x2][y2].type;
+	arr[x2][y2].type = temp;
 }
