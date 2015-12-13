@@ -18,8 +18,7 @@ typedef struct Jewel {
 
 
 
-int checkMove(int x1, int y1, int x2, int y2, Jewel arr[8][8]); //check if move is valid
-void clicktoJewel(int arr[2]); //translate click into x, y coordinates of jewel
+int clicktoJewel(int arr[2]);
 void drawOutline(void); //draw board grid
 void drawBoard(Jewel arr[8][8]); //draw board based on current array
 void drawJewel(Jewel jewel); // will contain functions for pixel art
@@ -36,6 +35,8 @@ void swap(int x1, int y1, int x2, int y2, Jewel arr[8][8]); //perform swap on ar
 void updateScore(int * scorep); //updates the current score (called in/after checkMove if move is found to be valid)
 void userMove(int arr1[2], int arr2[2], Jewel arr[8][8]); //input the results of two clicktoJewel, perform swap and animations if valid
 int validBoard(Jewel arr[8][8]); //returns 0 if board is valid, 1 otherwise
+int adj(int arr1[2], int arr2[2]); //returns 1 if squares are adjacent
+int checkMove(int x1, int y1, int x2, int y2, Jewel arr[8][8]); //check if move is valid
 
 #endif
 
