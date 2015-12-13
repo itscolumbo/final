@@ -163,25 +163,173 @@ void drawNameOutline(void) {
 	gfx_rectangle(375,70,15,15);
 	gfx_rectangle(390,70,15,15);
 }
-void initializeJewel(Jewel jewel, int x, int y) { //fills randomized array of jewels
-	srand(time(NULL));
-	jewel.type = rand() % 6;
-	jewel.x0 = x;
-	jewel.y0 = y;
+void initJewel(Jewel *jewel, int x, int y) { //fills randomized array of jewels
+	int ty = rand() % 6;
+	jewel->type = ty;
+	jewel->x0 = x;
+	jewel->y0 = y;
 }
 
-void initializeBoard(Jewel arr[8][8]) {
+void initBoard(Jewel arr[8][8]) {
+	srand(time(NULL));
 	int i, j, x = 151, y = 151;
 	for (i = 0; i < 8; i++) {
 		for (j = 0; j < 8; j++) {
-			initializeJewel(arr[i][j], x, y);
+			initJewel(&arr[i][j], x, y);
 			y += 50;
 		}
 		x += 50;
+		y -= 400;
 	}
 }
 
 void drawJewel(Jewel jewel) {
+	typedef struct pixel {
+	int arr[3];
+	} pixel;
+
+	//pixel Rarr[16][16];
+	//pixel Carr[16][16];
+	//pixel Tarr[16][16];
+	//pixel Farr[16][16];
+	//pixel Warr[16][16];
+	//pixel Marr[16][16];
+
+	pixel lb = {{145, 113, 55}};
+	pixel gr = {{155, 231, 71}};
+	pixel pe = {{255, 204, 153}};
+	pixel pi = {{255, 125, 125}};
+	pixel br = {{88, 59, 0}};
+	pixel bu = {{42, 28, 0}};
+	pixel wh = {{255, 255, 255}};
+	pixel ub = {{217, 225, 242}};
+	pixel sb = {{180, 198, 231}};
+	pixel mb = {{142, 169, 219}};
+	pixel db = {{48, 84, 150}};
+	pixel na = {{32, 55, 100}};
+	pixel bl = {{0, 0, 0}};
+	pixel vg = {{22, 22, 22}};
+	pixel dg = {{56, 56, 56}};
+	pixel mg = {{113, 113, 113}};
+	pixel lg = {{170, 170, 170}};
+	pixel ye = {{255, 255, 102}};
+	pixel pu = {{204, 153, 255}};;
+
+
+	pixel Rarr[16][16] = {
+	gr,gr,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,gr,gr,
+	gr,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,lb,gr,
+	lb,lb,pe,lb,lb,lb,lb,lb,lb,lb,lb,lb,pe,pe,lb,gr,
+	lb,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,lb,lb,
+	lb,lb,pe,pe,lb,lb,pe,pe,pe,pe,lb,pe,pe,pe,lb,lb,
+	lb,lb,lb,lb,pe,pe,lb,pe,pe,lb,pe,lb,lb,pe,lb,lb,
+	lb,lb,pe,pe,wh,pe,pe,br,pe,pe,wh,pe,pe,lb,lb,lb,
+	pe,lb,pe,wh,br,wh,pe,br,pe,wh,br,wh,wh,pe,lb,pe,
+	pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,
+	pe,pe,pe,pe,pe,pe,br,pe,pe,br,pe,pe,pe,pe,pe,pe,
+	pe,pe,pe,pe,pe,pe,pe,br,br,pe,pe,pe,pe,pe,pe,pe,
+	gr,gr,pe,pe,pi,pe,pe,pe,pe,pe,pe,pi,pe,pe,gr,gr,
+	gr,gr,pe,pe,pe,wh,wh,wh,wh,wh,wh,pe,pe,pe,gr,gr,
+	gr,gr,gr,pe,pe,pe,pi,pi,pi,pi,pe,pe,pe,gr,gr,gr,
+	gr,gr,gr,gr,pe,pe,pe,pe,pe,pe,pe,pe,gr,gr,gr,gr,
+	gr,gr,gr,gr,gr,pe,pe,pe,pe,pe,pe,gr,gr,gr,gr,gr,
+	};
+
+	pixel Carr[16][16] = {
+	pu,pu,br,br,br,br,br,br,br,br,br,br,br,pu,pu,pu,
+	pu,br,br,br,br,br,br,br,br,br,br,br,br,br,pu,pu,
+	br,br,br,br,br,br,br,br,br,br,br,br,br,br,br,pu,
+	br,br,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,br,br,br,
+	br,br,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,br,br,br,
+	br,br,pe,lb,lb,lb,pe,pe,lb,lb,lb,lb,pe,br,br,br,
+	br,br,lb,pe,pe,pe,pe,bu,pe,pe,pe,pe,lb,pe,br,br,
+	pe,br,pe,wh,br,wh,pe,bu,pe,wh,br,wh,pe,pe,br,pe,
+	pe,br,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,br,pe,
+	pe,pe,pe,pe,pe,pe,bu,pe,pe,bu,pe,pe,pe,pe,pe,pe,
+	pe,pe,br,pe,pe,pe,pe,bu,bu,pe,pe,pe,pe,br,pe,pe,
+	pu,br,pe,pe,pe,br,br,br,br,br,br,pe,pe,pe,br,pu,
+	pu,br,br,pe,br,br,pi,pi,pi,pi,br,br,pe,br,br,pu,
+	br,br,br,br,br,br,br,br,br,br,br,br,br,br,br,pu,
+	br,br,br,br,br,br,br,br,br,br,br,br,br,br,br,br,
+	br,br,br,br,br,br,br,br,br,br,br,br,br,br,br,br,
+	};
+
+	pixel Tarr[16][16] = {
+	pi,pi,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,pi,pi,pi,
+	pi,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,pi,
+	bl,bl,bl,bl,bl,pe,pe,bl,bl,bl,bl,bl,bl,bl,bl,pi,
+	bl,bl,bl,pe,pe,pe,pe,pe,pe,pe,bl,bl,bl,bl,bl,bl,
+	bl,bl,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,bl,bl,bl,bl,
+	bl,bl,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,bl,bl,bl,
+	bl,bl,pe,br,br,br,pe,pe,pe,br,br,br,br,pe,bl,bl,
+	bl,bl,br,pe,wh,pe,pe,bu,pe,pe,wh,pe,pe,br,bl,bl,
+	bl,bl,pe,wh,br,wh,pe,br,pe,wh,br,wh,wh,pe,bl,bl,
+	bl,bl,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,pe,bl,bl,
+	bl,bl,bl,pe,pe,pe,br,pe,bu,pe,pe,pe,pe,bl,bl,bl,
+	bl,bl,bl,pe,pe,pe,pe,br,pe,pe,pe,pe,pe,bl,bl,bl,
+	bl,bl,bl,pe,pe,pe,pe,pe,pe,pi,pe,pe,pe,bl,bl,bl,
+	bl,bl,bl,bl,pe,pe,pi,pi,pi,pe,pe,pe,bl,bl,bl,bl,
+	bl,bl,bl,bl,bl,pe,pe,pe,pe,pe,pe,bl,bl,bl,bl,bl,
+	bl,bl,bl,bl,bl,bl,pe,pe,pe,pe,bl,bl,bl,bl,bl,bl,
+	};
+
+	pixel Farr[16][16] = {
+	sb,sb,sb,mb,mb,mb,mb,mb,db,db,db,db,db,db,db,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,na,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,mb,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,mb,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,mb,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,mb,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,mb,db,
+	mb,ub,db,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,db,mb,db,
+	mb,ub,ub,db,db,db,db,db,db,db,db,db,db,sb,mb,na,
+	mb,ub,ub,sb,sb,sb,sb,sb,sb,sb,sb,sb,mb,mb,mb,na,
+	mb,ub,sb,mb,dg,dg,dg,dg,dg,dg,dg,dg,mb,mb,mb,na,
+	db,ub,sb,mb,dg,bl,vg,vg,wh,wh,wh,dg,mb,mb,mb,na,
+	db,ub,sb,mb,dg,vg,vg,dg,wh,wh,wh,dg,mb,mb,db,na,
+	db,ub,sb,mb,dg,vg,dg,dg,wh,wh,wh,dg,mb,db,db,na,
+	db,ub,sb,mb,dg,lg,lg,lg,lg,lg,lg,dg,db,db,db,na,
+	ub,db,db,db,na,na,na,na,na,na,na,na,na,na,na,na,
+	};
+
+	pixel Warr[16][16] = {
+	mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,
+	mg,db,db,db,db,db,db,db,db,db,db,db,db,db,db,mg,
+	mg,db,db,db,db,db,db,db,db,wh,db,wh,db,wh,db,mg,
+	mg,db,db,db,db,db,db,db,db,db,db,db,db,db,db,mg,
+	mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,wh,mg,
+	mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,
+	};
+
+	pixel Marr[16][16] = {
+	ye,ye,ye,ye,mg,mg,mg,mg,mg,mg,mg,mg,lg,ye,ye,ye,
+	ye,ye,ye,mg,lg,lg,lg,lg,lg,lg,lg,wh,mg,bl,ye,ye,
+	ye,ye,mg,wh,wh,wh,wh,wh,wh,wh,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,na,na,na,na,na,na,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,na,na,na,na,na,na,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,na,wh,wh,na,na,na,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,na,na,na,wh,wh,na,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,na,na,na,na,na,na,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,na,na,na,na,na,na,wh,mg,mg,bl,ye,ye,
+	ye,ye,mg,wh,wh,wh,wh,wh,wh,wh,wh,mg,bl,lg,ye,ye,
+	ye,ye,mg,mg,mg,mg,mg,mg,mg,mg,mg,mg,lg,mg,bl,ye,
+	ye,mg,lg,lg,lg,lg,lg,lg,lg,lg,lg,lg,mg,mg,bl,ye,
+	ye,mg,lg,bl,lg,lg,bl,bl,bl,bl,bl,lg,mg,mg,bl,ye,
+	ye,mg,lg,lg,lg,lg,lg,lg,lg,lg,lg,lg,mg,mg,bl,ye,
+	ye,mg,lg,lg,lg,lg,lg,lg,lg,lg,lg,lg,mg,bl,ye,ye,
+	ye,ye,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,bl,ye,ye,ye,
+	};
+
 	pixel pixelMap[16][16];
 	int i, j, p, q, x, y;
 	x = jewel.x0;
@@ -230,11 +378,12 @@ void drawJewel(Jewel jewel) {
 			}
 			break;
 		default :
-		printf("Draw failed");
+			printf("\nDraw failed");
 	}
 	for (i = 0; i < 16; i++) {
 		for(j = 0; j < 16; j++) {
-			gfx_color(pixelMap[i][j].arr[0], pixelMap[i][j].arr[1], pixelMap[i][j].arr[2] );
+			//printf("\nR: %d, G: %d, B: %d", pixelMap[i][j].arr[0], pixelMap[i][j].arr[1], pixelMap[i][j].arr[2]);
+			gfx_color(pixelMap[i][j].arr[0], pixelMap[i][j].arr[1], pixelMap[i][j].arr[2]);
 			for(p = 0; p < 3; p++) {
 				for(q = 0; q < 3; q++) {
 					gfx_point(x + p, y + q);
@@ -243,6 +392,7 @@ void drawJewel(Jewel jewel) {
 			x += 3;
 		}
 		y += 3;
+		x = jewel.x0;
 	}	
 }
 
@@ -253,4 +403,11 @@ void drawBoard(Jewel arr[8][8]) {
 			drawJewel(arr[i][j]);
 		}
 	}
+}
+
+void clicktoJewel(int arr[2]) {
+	int x = gfx_xpos();
+	int y = gfx_ypos();
+	arr[0] = (x - 150) % 50;
+	arr[1] = (y - 150) % 50;
 }
