@@ -14,7 +14,7 @@ int main(void) {
 	gfx_open(800,600,"Final Project");
 	initBoard(jewels);
 	valid = validBoard(jewels); //checks if board is valid (has 3-in-a-row already present and matches are possible)
-	while(valid==1) { 
+	while(valid == 0) { 
 		removeMatch(jewels); //finds a match on the board, gets rid of it
 		valid = validBoard(jewels); //checks if board now valid
 	} 

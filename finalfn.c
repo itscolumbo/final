@@ -415,7 +415,7 @@ void clicktoJewel(int arr[2]) {
 	arr[1] = (y - 150) % 50;
 }
 int validBoard(Jewel arr[8][8]) {
-	int notValid = 1, valid = 0, i=0, j=0;
+	int notValid = 0, valid = 1, i=0, j=0;
 	//checks if board already contains matches
 	
 	for (i = 0; i < 8; i++) {
