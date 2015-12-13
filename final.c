@@ -6,7 +6,7 @@
 #include "finalfn.h"
 
 int main(void) { 
-	int event, score = 0, valid = 0, avalid, arr1[2], arr2[2];
+	int event, score = 0, valid = 0, avalid, firstClick[2], secondClick[2];
 	int * scorep = &score;
 	char c, pc = 0;
 	Jewel jewels[8][8];
@@ -21,37 +21,45 @@ int main(void) {
 
 	while(c!='q') { //runs until user presses q to quit
 		event = gfx_event_waiting();
-
+		
 		if(event) {
+			//printf("\n%d ", event);
 			c = gfx_wait();
-			if (c == 1) {
-				valid = clicktoJewel(arr1);
-				printf("\nFirst click at: %d, %d", arr1[0], arr1[1]);
-				if (pc == 1) { //pc is previous c
-					valid = clicktoJewel(arr2);
-					printf("\nSecond click at: %d, %d", arr2[0], arr2[1]);
-					avalid = adj(arr1, arr2);
-					if (valid && avalid) {
-						swap(arr1[0], arr1[1], arr2[0], arr2[1], jewels);
-						if(!checkMove(arr1[0], arr1[1], arr2[0], arr2[1], jewels)) {
-							swap(arr1[0], arr1[1], arr2[0], arr2[1], jewels);
+			if (c==1) {
+				if(event==4) {
+					if(pc==1&&valid) { //mouse clicked previously
+						valid = clicktoJewel(secondClick);
+						if(valid==1) {
+							//printf("\nSecond click at: %d, %d", secondClick[0], secondClick[1]);
+							pc = 0;
+							valid = 0;
+							avalid = adj(firstClick, secondClick);
+							if (avalid) {
+								//printf("swapping");
+								swap(firstClick[0], firstClick[1], secondClick[0], secondClick[1], jewels);
+								//undo swap if move does not create a match
+								if(!checkMove(firstClick[0], firstClick[1], secondClick[0], secondClick[1], jewels)) {
+									swap(firstClick[0], firstClick[1], secondClick[0], secondClick[1], jewels);
+								}
+							}
+						}
+					} else {
+						valid = clicktoJewel(firstClick);
+						//printf("\nFirst click at: %d, %d", firstClick[0], firstClick[1]);
+						if(valid==1) {
+							pc = 1;
 						}
 					}
 				}
+				event = 0;
 			}
 			gfx_clear();
 			drawOutline();
 			drawBoard(jewels);
-			gfx_flush();
-			usleep(1000000);
-			event = 0;
+			//usleep(1000000);
+			
 		}
 		gfx_flush();
-		event = 0;
-		if (valid) {
-			pc = c;
-		} else pc = 0;
-		c = 0;
 	}
 
 	return 0;

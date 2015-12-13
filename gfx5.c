@@ -130,10 +130,11 @@ int gfx_event_waiting()
          } else if (event.type==ButtonRelease) {
             XPutBackEvent(gfx_display,&event);
             return 4;
-         } else if (event.type==MotionNotify) {
-            XPutBackEvent(gfx_display,&event);
-            return 5;
-         } else {
+         } //else if (event.type==MotionNotify) {
+            //XPutBackEvent(gfx_display,&event);
+           // return 5;
+        // } 
+          else {
             return 0;
          }
       } else {

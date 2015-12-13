@@ -411,14 +411,17 @@ void drawBoard(Jewel arr[8][8]) {
 int clicktoJewel(int arr[2]) {
 	int x = gfx_xpos();
 	int y = gfx_ypos();
-	arr[1] = (x - 150) / 50;
-	arr[0] = (y - 150) / 50;
-	if (arr[1] >= 0 && arr[1] < 8) {
-		if (arr[0] >= 0 && arr[0] < 8) {
+	int temp1, temp2;
+	temp1 = (x - 150) / 50;
+	temp2 = (y - 150) / 50;
+	if (temp1 >= 0 && temp1 < 8) {
+		if (temp2 >= 0 && temp2 < 8) {
+			arr[0] = (x - 150) / 50;
+			arr[1] = (y - 150) / 50;
 			return 1;
 		}
 	}
-	else return 0;
+	return 0;
 }
 int validBoard(Jewel arr[8][8]) {
 	int notValid = 0, valid = 1, i=0, j=0;
@@ -490,15 +493,13 @@ int adj(int arr1[2], int arr2[2]) {
 	if (arr1[1] == arr2[1]) {
 		if (arr1[0] == arr2[0]) {
 			return 0;
-		}
-		else if (arr1[0] - arr2[0] == 1 || arr2[0] - arr1[0] == 1) {
+		} else if (arr1[0] - arr2[0] == 1 || arr2[0] - arr1[0] == 1) {
 			return 1;
 		}
 	} else if (arr1[0] == arr2[0]) {
-		if (arr1[0] == arr2[0]) {
+		if (arr1[1] == arr2[1]) {
 			return 0;
-		}
-		else if (arr1[1] - arr2[1] == 1 || arr2[1] - arr1[1] == 1) {
+		} else if (arr1[1] - arr2[1] == 1 || arr2[1] - arr1[1] == 1) {
 			return 1;
 		}
 	}
@@ -516,5 +517,5 @@ int checkMove(int x1, int y1, int x2, int y2, Jewel arr[8][8]) {
 	if (validBoard(arr)) {
 		return 0;
 	}
-	else return 1;
+	return 1;
 }
