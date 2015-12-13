@@ -443,30 +443,36 @@ int validBoard(Jewel arr[8][8]) {
 void removeMatch(Jewel arr[8][8]) {
 	int i, j;
 
-		for (i = 0; i < 8; i++) {
+	for (i = 0; i < 8; i++) {
 		for(j = 0; j < 8; j++) {
 			if(j<6) {
-				 if(arr[i][j].type==arr[i][j+1].type) {
+				 if(arr[i][j].type == arr[i][j+1].type) {
 				 	if(arr[i][j+2].type==arr[i][j+1].type) { //three in a row found
-					 	if(arr[i][j+1].type>0) {
+				 		//printf("\nOrig: arr[%d][%d] type: %d", i, j, arr[i][j+1].type);
+				 		//printf("\nOrig: arr[%d][%d] type: %d", i, j+1, arr[i][j+1].type);
+				 		//printf("\nOrig: arr[%d][%d] type: %d", i, j+2, arr[i][j+1].type);
+				 		//printf("\nNew : arr[%d][%d] type: %d", i, j+1, arr[i][j+1].type);
+					 	if(arr[i][j].type > 0) {
 					 		//printf("%d %d %d \n", arr[i][j].type, arr[i][j+1].type, arr[i][j+2].type);
-					 		arr[i][j+1].type--;
-					 		return;
+					 		arr[i][j].type--;
+					 		//return;
 					 	} else {
-					 		arr[i][j+1].type++; //ensure stays within boundary of array
-					 		return;
+					 		arr[i][j].type = 5; //ensure stays within boundary of array
+					 		//return;
 					 	}
+					 	//printf("\nNew : arr[%d][%d] type: %d", i, j+1, arr[i][j].type);
 					} 
 				}
-			} else if(i<6) {
+			} 
+			if(i<6) {
 				if(arr[i][j].type==arr[i+1][j].type) {
 					if(arr[i+2][j].type==arr[i+1][j].type) {
-					 	if(arr[i+1][j].type>0) {
-					 		arr[i+1][j].type--; //sets type to a different one
-					 		return;
+					 	if(arr[i+1][j].type > 0) {
+					 		arr[i][j].type--; //sets type to a different one
+					 		//return;
 					 	} else {
-					 		arr[i-1][j].type++; //ensure stays within boundary of array
-					 		return;
+					 		arr[i][j].type = 5; //ensure stays within boundary of array
+					 		//return;
 					 	}
 					}	
 				}
