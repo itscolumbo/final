@@ -36,3 +36,31 @@ lg,lg,lg,pe,pe,pe,pi,pi,pi,pi,pe,pe,pe,lg,lg,lg
 lg,lg,lg,lg,pe,pe,pe,pe,pe,pe,pe,pe,lg,lg,lg,lg
 lg,lg,lg,lg,lg,pe,pe,pe,pe,pe,pe,lg,lg,lg,lg,lg
 };
+
+40/40
+38/40
+29/30
+39/40
+28/30
+29/30
+30/40
+34/50
+98/100
+
+	if (arr[col][row].type == 6) {
+		printf("\nBlank at: %d, %d", col, row);
+		if (arr[col - 1][row].type == 6 && col - 1 > 0) {
+			moveDown(arr, col - 1, row);
+		} else if (arr[col - 1][row].type == 6 && col - 1 == 0) {
+			arr[0][row].type = 6;
+			return;
+		} else {
+			printf("\nMove Down");
+			arr[col][row].type = arr[col-1][row].type;
+			return;
+		}
+	}
+	if (col > 1) {
+		moveDown(arr, col - 1, row);
+	}
+	return;

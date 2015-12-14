@@ -156,15 +156,15 @@ char gfx_wait()
          saved_xpos = event.xkey.x;
          saved_ypos = event.xkey.y;
          return XLookupKeysym(&event.xkey,0);
-      } else if(event.type==KeyRelease) {
-         saved_xpos = event.xkey.x;
-         saved_ypos = event.xkey.y;
-         return XLookupKeysym(&event.xkey,0);
+      //} else if(event.type==KeyRelease) {
+         //saved_xpos = event.xkey.x;
+        // saved_ypos = event.xkey.y;
+        // return XLookupKeysym(&event.xkey,0);
       } else if(event.type==ButtonPress) {
          saved_xpos = event.xkey.x;
          saved_ypos = event.xkey.y;
-         return event.xbutton.button;
-      } else if(event.type==ButtonRelease) {
+         return event.xbutton.button;} 
+        else if(event.type==ButtonRelease) {
          saved_xpos = event.xkey.x;
          saved_ypos = event.xkey.y;
          return event.xbutton.button;

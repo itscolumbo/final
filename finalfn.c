@@ -4,7 +4,7 @@
 
 #include "finalfn.h"
 
-void drawOutline() {
+void drawOutline(int *scorep) {
 	int i = 0;
 
 	gfx_color(255,255,255);
@@ -14,7 +14,15 @@ void drawOutline() {
 	}
 
 	//current score box
-	gfx_text(600,200,"Score: ");
+	char buffer[15];
+	snprintf(buffer, 14, "Score: %d", *scorep);
+	gfx_text(600,200, buffer);
+
+	gfx_text(600, 250, "Press q to quit");
+	gfx_text(600, 300, "Press s to shuffle board (-200 points)");
+	gfx_text(460, 75, "Click on two adjacent tiles to swap them.");
+	gfx_text(460, 90, "Score 3000 Points!");
+	gfx_text(460, 120, "Featuring Ramzi, Corey, and Tijana");
 
 	drawName();
 	drawNameOutline();
@@ -380,8 +388,22 @@ void drawJewel(Jewel jewel) {
 				}
 			}
 			break;
+		case 6 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = ye;
+				}
+			}
+			break;
+		case 7 :
+			for (i = 0; i < 16; i++) {
+				for(j = 0; j < 16; j++) {
+					pixelMap[i][j] = bl;
+				}
+			}
+			break;
 		default :
-			printf("\nDraw failed");
+			printf("\nDraw failed, case is %d", jewel.type);
 	}
 	for (i = 0; i < 16; i++) {
 		for(j = 0; j < 16; j++) {
@@ -408,7 +430,7 @@ void drawBoard(Jewel arr[8][8]) {
 	}
 }
 
-int clicktoJewel(int arr[2]) {
+int clickJewel(int arr[2]) {
 	int x = gfx_xpos();
 	int y = gfx_ypos();
 	int temp1, temp2;
@@ -424,7 +446,7 @@ int clicktoJewel(int arr[2]) {
 	return 0;
 }
 int validBoard(Jewel arr[8][8]) {
-	int notValid = 0, valid = 1, i=0, j=0;
+	int valid = 1, i=0, j=0;
 	//checks if board already contains matches
 	
 	for (i = 0; i < 8; i++) {
@@ -432,14 +454,15 @@ int validBoard(Jewel arr[8][8]) {
 			if(j<6) {
 				 if(arr[i][j].type==arr[i][j+1].type) {
 				 	if(arr[i][j+2].type==arr[i][j+1].type) { //three in a row found
-				 		//printf("%d %d %d \n", arr[i][j].type, arr[i][j+1].type, arr[i][j+2].type);
-				 		return notValid;
+				 		///printf("%d %d %d \n", arr[i][j].type, arr[i][j+1].type, arr[i][j+2].type);
+				 		valid = 0;
 					} 
 				}
-			} else if(i<6) {
+			}
+			if(i<6) {
 				if(arr[i][j].type==arr[i+1][j].type) {
 					if(arr[i+2][j].type==arr[i+1][j].type) {
-			 			return notValid;
+			 			valid = 0;
 					}
 				}
 				
@@ -456,7 +479,7 @@ void removeMatch(Jewel arr[8][8]) {
 		for(j = 0; j < 8; j++) {
 			if(j<6) {
 				 if(arr[i][j].type == arr[i][j+1].type) {
-				 	if(arr[i][j+2].type==arr[i][j+1].type) { //three in a row found
+				 	if(arr[i][j+1].type==arr[i][j+2].type) { //three in a row found
 				 		//printf("\nOrig: arr[%d][%d] type: %d", i, j, arr[i][j+1].type);
 				 		//printf("\nOrig: arr[%d][%d] type: %d", i, j+1, arr[i][j+1].type);
 				 		//printf("\nOrig: arr[%d][%d] type: %d", i, j+2, arr[i][j+1].type);
@@ -475,7 +498,7 @@ void removeMatch(Jewel arr[8][8]) {
 			} 
 			if(i<6) {
 				if(arr[i][j].type==arr[i+1][j].type) {
-					if(arr[i+2][j].type==arr[i+1][j].type) {
+					if(arr[i+1][j].type==arr[i+2][j].type) {
 					 	if(arr[i+1][j].type > 0) {
 					 		arr[i][j].type--; //sets type to a different one
 					 		//return;
@@ -503,6 +526,7 @@ int adj(int arr1[2], int arr2[2]) {
 			return 1;
 		}
 	}
+	return 0;
 }
 
 void swap(int x1, int y1, int x2, int y2, Jewel arr[8][8]) {
@@ -518,4 +542,78 @@ int checkMove(int x1, int y1, int x2, int y2, Jewel arr[8][8]) {
 		return 0;
 	}
 	return 1;
+}
+
+void dropFill(Jewel arr[8][8], int *scorep) {
+	int i, j, count = 0, fill;
+	for (i = 0; i < 8; i++) {
+		for(j = 0; j < 8; j++) {
+			if(j<6) {
+				 if(arr[i][j].type==arr[i][j+1].type && arr[i][j+2].type==arr[i][j+1].type) { //three in a row found
+				 	//printf("%d %d %d \n", arr[i][j].type, arr[i][j+1].type, arr[i][j+2].type);
+				 	arr[i][j].type = 6;
+				 	arr[i][j+1].type = 6;
+				 	arr[i][j+2].type = 6;
+				 	*scorep += 50; 
+				}
+			}
+			if(i<6) {
+				if(arr[i][j].type==arr[i+1][j].type && arr[i+2][j].type==arr[i+1][j].type) {
+		 			arr[i][j].type = 6;
+		 			arr[i+1][j].type = 6;
+		 			arr[i+2][j].type = 6;
+		 			*scorep += 50;
+				}
+				
+			}
+		}
+	}
+	gfx_clear();
+	drawOutline(scorep);
+	drawBoard(arr);
+	usleep(500000);
+
+	for(j = 0; j < 8; j++) {
+		moveDown(arr, j);
+	}
+	
+	Jewel *je;
+	for (i = 0; i < 8; i++) {
+		for(j = 0; j < 8; j++) {
+			if (arr[i][j].type == 6) {
+				je = &arr[i][j];
+				je->type = rand() % 6;
+			}
+		}
+	}
+	gfx_clear();
+	drawOutline(scorep);
+	drawBoard(arr);
+	usleep(700000);
+	if (!validBoard(arr)) {
+		//printf("\nMore!");
+		dropFill(arr, scorep);
+	}
+	else {
+		return;
+	}
+}
+
+void moveDown(Jewel arr[8][8], int col) {
+	int i, j, count = 0;
+	Jewel *je;
+	for(i = 7; i >=0; i--) {
+		if(arr[col][i].type == 6) {
+			count++;
+			if (i - count < 0) {
+				break;
+			}
+			for(j = i; j >= count; j--) {
+				//printf("\n%d, %d was type %d", col, j, arr[col][j].type);
+				je = &arr[col][j];
+				je->type = arr[col][j - count].type;
+				//printf("\n%d, %d is now type %d", col, j, arr[col][j].type);
+			}
+		}
+	}
 }
