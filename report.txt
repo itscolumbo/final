@@ -1,0 +1,54 @@
+Lab Report for Final Project (Match-3)
+Author: Kat Herring & Mara Staines
+
+From the user's perspective, when the program opens a game board is 
+automatically generated. Instructions and the current score display on the s
+side of the board. If the user clicks two tiles which are not adjacent, a 
+swap will not be made. If the user attempts to swap two adjacent tiles that 
+do not create a three-in-a-row match, "Not a match" will be displayed in the 
+command line and a swap will not be made. If the user swaps two adjacent 
+tiles that do form a match when swapped, then the tiles will swap and will 
+be cleared from the board, adding 50 points to the user's score. Tiles above 
+the first one will "fall" down and if that creates any matches, those will 
+be cleared and added to the score as well. If the user is unable to find any 
+matches, pressing "s" will shuffle the board at the expense of 200 points. 
+When the user reaches 3000 points, the message "You win!" is displayed 
+multiple times and the program terminates.
+
+From the programmer's perspective, the program begins with a .h file which 
+includes gfx5 and other needed libraries as well as setting up the struct 
+"Jewel" and prototypes for the functions. From there, main begins, opening 
+the screen and initializing the board using "initBoard", which seeds a 
+random number generate and calls initJewel to randomly assigns a "type" to 
+each jewel in the 8x8 array of jewels initialized in main and store the x 
+and y coordinates of the top left corner of the jewel. After this is done, 
+validBoard is called to test if the board is valid (if it already contains 
+three-in-a-row matches). validBoard returns 1 if no matches are found and 
+zero otherwise after checking using nested for loop and if statements. A 
+while loop is entered until validBoard returns 1, calling "removeMatch" 
+between each check. removeMatches takes an input of the array uses nexted 
+for loops and if statements to first find a three-in-a-row match, and then 
+modify the central jewel of the three-in-a-row match by subtracting one from 
+the type (or setting it to five if the type is already zero).
+
+Once a valid initial board is found, the functions drawOutline and drawBoard 
+are called. drawOutline taken an input of a pointer to the score and draws a 
+border around the gameboard as well as displaying the current score and 
+instructions. drawOutline calls drawName and drawNameOutline, which use 
+gfx_rectangle and gfx_fill_rectangle to draw the title of the game (Match-3).
+
+
+From there, gameplay begins and the program will continue until the user 
+either presses 'q' or wins.
+
+//still needs rest of program from programming perspective
+
+To test the program, we tested each function individually. Printfs were used 
+to ensure that data was being stored and modified correctly in variables and 
+array. After each modification, the program was run and checked for correct 
+responses to "illegal" (clicking outside the gameboard, attempting to swap 
+two adjacent tiles) and legal moves. We had several people test the game by 
+playing it in order to find glitches or confusing outputs (for example, the 
+squares flashing yellow after a match has been made before the board is 
+adjusted to make it more obvious what the program is doing was added as a 
+result of this input).
