@@ -1,12 +1,12 @@
 //final.c
 //Bejewelled-type game using GFX Library and XMing
-//Note: our use of gfx5.c does NOT detect motion- ability removed from gfx_event_waiting
+//Note: our use of gfx5.c does NOT detect motion- ability removed from gfx_event_waiting & gfx_wait
 //Author: Kat Herring & Mara Staines
 
 #include "finalfn.h"
 
 int main(void) { 
-	int event, score = 2500, valid = 0, avalid, firstClick[2], secondClick[2];
+	int event, score = 0, valid = 0, avalid, firstClick[2], secondClick[2];
 	int *scorep = &score;
 	char c, pc = 0;
 	Jewel jewels[8][8];
@@ -47,15 +47,12 @@ int main(void) {
 					if(pc == 1 && valid) { //mouse clicked previously
 						valid = clickJewel(secondClick);
 						if(valid==1) {
-							//printf("\nSecond click at: %d, %d", secondClick[0], secondClick[1]);
 							pc = 0;
 							valid = 0;
 							avalid = adj(firstClick, secondClick);
 							if (avalid) {
-								//printf("\nswapping");
 								swap(firstClick[0], firstClick[1], secondClick[0], secondClick[1], jewels);
 								//undo swap if move does not create a match
-								//printf("\nValid == %d", validBoard(jewels));
 								if(validBoard(jewels)) {
 									printf("\nNot a match");
 									swap(firstClick[0], firstClick[1], secondClick[0], secondClick[1], jewels);
@@ -66,7 +63,6 @@ int main(void) {
 						}
 					} else {
 						valid = clickJewel(firstClick);
-						//printf("\nFirst click at: %d, %d", firstClick[0], firstClick[1]);
 						if(valid==1) {
 							pc = 1;
 						}
@@ -77,7 +73,6 @@ int main(void) {
 			gfx_clear();
 			drawOutline(scorep);
 			drawBoard(jewels);
-			//usleep(1000000);
 			
 		}
 		gfx_flush();
@@ -85,10 +80,10 @@ int main(void) {
 			gfx_color(255, 255, 255);
 			int i;
 			for (i = 0; i < 11; i++) {
-			gfx_text(600, 350 + i * 15, "You WIN!");
-			gfx_flush();
-			usleep(1000000);
-			c = 'q';
+				gfx_text(600, 350 + i * 15, "You WIN!");
+				gfx_flush();
+				usleep(1000000);
+				c = 'q'; //ends game once user has won
 			}
 		}
 	}

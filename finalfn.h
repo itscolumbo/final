@@ -13,7 +13,6 @@ typedef struct Jewel {
 #include <stdio.h>
 #include <time.h>
 #include "gfx5.h"
-//#include "sprites.h"
 
 
 
@@ -33,7 +32,6 @@ int moreMoves(Jewel arr[8][8]); //check if more moves exist
 void moveAni(int x1, int y1, int x2, int y2); //animate swap, remove, refilling
 void shuffle(Jewel arr[8][8]); //shuffle if no new moves exist
 void swap(int x1, int y1, int x2, int y2, Jewel arr[8][8]); //perform swap on arr 
-//void updateScore(int * scorep); //updates the current score (called in/after checkMove if move is found to be valid)
 void userMove(int arr1[2], int arr2[2], Jewel arr[8][8]); //input the results of two clicktoJewel, perform swap and animations if valid
 int validBoard(Jewel arr[8][8]); //returns 0 if board is valid, 1 otherwise
 int adj(int arr1[2], int arr2[2]); //returns 1 if squares are adjacent
